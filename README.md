@@ -27,6 +27,17 @@ aws_access_key_id=AK****************YU
 aws_secret_access_key=pQ***************************************tq
 ```
 
+## Building & running the script on your own server
+
+The [./r53-ddns](compiled executable for linux) is already included in this repo and is ready to use, so if you prefer to use that, ignore the first 3 steps:
+
+1. Ensure you have golang installed @ minimum version `1.19`
+2. `go mod tidy`
+3. `go build`
+4. Copy the compiled `r53-ddns` file to your server/router where you want it to run (in my case, it's a GL.inet Flint router with OpenWRT)
+    a. You can use scp for this, eg: `scp r53-ddns root@192.168.0.1:/root/r53-ddns`
+5. SSH into the server and run `./r53-ddns` (see below for args)
+
 ## Usage
 
 To use this script, you need to provide the following arguments:
@@ -42,19 +53,10 @@ Here's an example of how to use the script:
 To set this up to be executed regularly, you can set a cron job with `crontab -e`:
 
 ```
-0 */6 * * * /root/r53 Z000000000000000000MW home.foo.bar $(/root/get-ip) | tee -a /root/ddns-output.log
+0 */6 * * * /root/r53 Z000000000000000000MW home.foo.bar $(/root/get-ip.sh) | tee -a /root/ddns-output.log
    ^             ^                                                 ^              
    |             |                                                 |
    |             this is the path to the r53 executable script     |
    |                                                               this is a local script which gets the current public ip address of the server (see below)
    this cron job will run every 6 hours
-```
-
-## Ip Address Script
-
-This script can be put on the server and called to obtain the current public-facing ip address from the `ip` command. On openwrt routers, this should provide the value of the WAN interface's ip address which should be your internet-facing IP. YMMV with this script :)
-
-```
-#!/bin/sh
-ip -4 addr show eth0 | sed -Ene 's/^.*inet ([0-9.]+)\/.*$/\1/p'
 ```
