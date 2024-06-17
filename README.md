@@ -29,7 +29,7 @@ aws_secret_access_key=pQ***************************************tq
 
 ## Building & running the script on your own server
 
-The [./r53-ddns](compiled executable for linux) is already included in this repo and is ready to use, so if you prefer to use that, ignore the first 3 steps:
+The compiled executable for linux [r53-ddns](https://github.com/jackphilippi/r53-ddns/blob/main/r53-ddns) is already included in this repo and is ready to use, so if you prefer to use that, ignore the first 3 steps:
 
 1. Ensure you have golang installed @ minimum version `1.19`
 2. `go mod tidy`
