@@ -57,6 +57,8 @@ To set this up to be executed regularly, you can set a cron job with `crontab -e
    ^             ^                                                 ^              
    |             |                                                 |
    |             this is the path to the r53 executable script     |
-   |                                                               this is a local script which gets the current public ip address of the server (see below)
+   |                                                               this is a local script which gets the
+   |                                                               current public ip address of the server
+   |                                                               (see comments in `get-ip.sh`)
    this cron job will run every 6 hours
 ```
